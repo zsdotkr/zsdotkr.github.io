@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>Cat1_Test</title>
+      <link>/post/category1/cat1_te/</link>
+      <pubDate>Tue, 30 Oct 2018 23:35:05 +0900</pubDate>
+      
+      <guid>/post/category1/cat1_te/</guid>
+      <description>My test blog article</description>
+    </item>
+    
+    <item>
       <title>Test</title>
       <link>/post/test/</link>
       <pubDate>Tue, 30 Oct 2018 23:35:05 +0900</pubDate>
