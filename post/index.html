@@ -12,7 +12,7 @@
 <meta property="og:description" content="zsdtkr&#39;s personal blog" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="/post/" />
-<meta property="og:updated_time" content="2018-10-30T23:35:05&#43;09:00"/>
+<meta property="og:updated_time" content="2018-10-01T00:00:00&#43;00:00"/>
 
 	<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Posts"/>
@@ -59,19 +59,32 @@ if (!doNotTrack) {
 	</header><article class="list__item post">
 	<header class="list__header">
 		<h3 class="list__title post__title ">
-			<a href="/post/category1/cat1_te/" rel="bookmark">
-			Cat1_Test
+			<a href="/post/dlang-pointer-to-const-pointer/" rel="bookmark">
+			C2Dlang: pointer to const pointer
 			</a>
 		</h3>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
 	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 16 16"><path d="m8-.0000003c-4.4 0-8 3.6-8 8 0 4.4000003 3.6 8.0000003 8 8.0000003 4.4 0 8-3.6 8-8.0000003 0-4.4-3.6-8-8-8zm0 14.4000003c-3.52 0-6.4-2.88-6.4-6.4000003 0-3.52 2.88-6.4 6.4-6.4 3.52 0 6.4 2.88 6.4 6.4 0 3.5200003-2.88 6.4000003-6.4 6.4000003zm.4-10.4000003h-1.2v4.8l4.16 2.5600003.64-1.04-3.6-2.1600003z"/></svg>
-	<time class="meta__text" datetime="2018-10-30T23:35:05">October 30, 2018</time>
+	<time class="meta__text" datetime="2018-10-01T00:00:00">2018-10</time>
+</div>
+
+<div class="meta__item-categories meta__item">
+	<svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg>
+	<span class="meta__text"><a class="meta__link" href="/categories/dlang" rel="category">dlang</a></span>
 </div>
 </div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
-		My test blog article
+		이 글은 C를 기준으로 Dlang을 비교/설명함으로써 C 언어 사용자가 Dlang을 쉽게 이해할 수 있도록 하기 위해 작성되었습니다.
+ 제목처럼 C에서 &ldquo;ponter&rdquo;와 &ldquo;const&rdquo;의 조합을 Dlang에서는 어떻게 사용하는 지, 어떤 차이점이 있는지를 정리하고자 합니다.
+아시겠지만 C에서 const 키워드가 어떻게 사용되는지를 먼저 간단히 요약하면
+ read &amp; write 가 모두 가능한 변수를 read only로 만들기 위한 방법이고
+ &rdquo;#define&rdquo; 을 대체하는 수단으로 사용될 수 있고
+  #define MY_DEFINE1 1 // MY_DEFINE can be any of integer/float/double  const float MY_CONST = 1; // MY_COSNT must be an float  함수 파라메터에 사용할 때는 해당 파라메터가 함수내에서 변경하지 않음을 명시할 수 있습니다
+	</div>
+	<div class="list__footer clearfix">
+		<a class="list__footer-readmore btn" href="/post/dlang-pointer-to-const-pointer/">Read more…</a>
 	</div>
 </article><article class="list__item post">
 	<header class="list__header">
@@ -83,7 +96,12 @@ if (!doNotTrack) {
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
 	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 16 16"><path d="m8-.0000003c-4.4 0-8 3.6-8 8 0 4.4000003 3.6 8.0000003 8 8.0000003 4.4 0 8-3.6 8-8.0000003 0-4.4-3.6-8-8-8zm0 14.4000003c-3.52 0-6.4-2.88-6.4-6.4000003 0-3.52 2.88-6.4 6.4-6.4 3.52 0 6.4 2.88 6.4 6.4 0 3.5200003-2.88 6.4000003-6.4 6.4000003zm.4-10.4000003h-1.2v4.8l4.16 2.5600003.64-1.04-3.6-2.1600003z"/></svg>
-	<time class="meta__text" datetime="2018-10-30T23:35:05">October 30, 2018</time>
+	<time class="meta__text" datetime="2018-10-01T00:00:00">2018-10</time>
+</div>
+
+<div class="meta__item-categories meta__item">
+	<svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg>
+	<span class="meta__text"><a class="meta__link" href="/categories/dlang" rel="category">dlang</a></span>
 </div>
 </div>
 	</header>
@@ -109,9 +127,23 @@ if (!doNotTrack) {
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
-			<li class="widget__item"><a class="widget__link" href="/post/category1/cat1_te/">Cat1_Test</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/dlang-pointer-to-const-pointer/">C2Dlang: pointer to const pointer</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/test/">Test</a></li>
 		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/categories/dlang">Dlang</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-taglist widget">
+	<h4 class="widget__title">Tags</h4>
+	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/aaa" title="Aaa">Aaa (2)</a>
 	</div>
 </div>
 <div class="widget-social widget">

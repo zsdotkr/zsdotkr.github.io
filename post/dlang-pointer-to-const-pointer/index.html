@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>C2Dlang: pointer to const pointer</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<meta name="generator" content="Hugo 0.50" />
+	<meta property="og:title" content="C2Dlang: pointer to const pointer" />
+<meta property="og:description" content="이 글은 C를 기준으로 Dlang을 비교/설명함으로써 C 언어 사용자가 Dlang을 쉽게 이해할 수 있도록 하기 위해 작성되었습니다.
+ 제목처럼 C에서 &ldquo;ponter&rdquo;와 &ldquo;const&rdquo;의 조합을 Dlang에서는 어떻게 사용하는 지, 어떤 차이점이 있는지를 정리하고자 합니다.
+아시겠지만 C에서 const 키워드가 어떻게 사용되는지를 먼저 간단히 요약하면
+ read &amp; write 가 모두 가능한 변수를 read only로 만들기 위한 방법이고
+ &rdquo;#define&rdquo; 을 대체하는 수단으로 사용될 수 있고
+  #define MY_DEFINE1 1 // MY_DEFINE can be any of integer/float/double  const float MY_CONST = 1; // MY_COSNT must be an float  함수 파라메터에 사용할 때는 해당 파라메터가 함수내에서 변경하지 않음을 명시할 수 있습니다" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/dlang-pointer-to-const-pointer/" /><meta property="article:published_time" content="2018-10-01T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-10-01T00:00:00&#43;00:00"/>
+
+	<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="C2Dlang: pointer to const pointer"/>
+<meta name="twitter:description" content="이 글은 C를 기준으로 Dlang을 비교/설명함으로써 C 언어 사용자가 Dlang을 쉽게 이해할 수 있도록 하기 위해 작성되었습니다.
+ 제목처럼 C에서 &ldquo;ponter&rdquo;와 &ldquo;const&rdquo;의 조합을 Dlang에서는 어떻게 사용하는 지, 어떤 차이점이 있는지를 정리하고자 합니다.
+아시겠지만 C에서 const 키워드가 어떻게 사용되는지를 먼저 간단히 요약하면
+ read &amp; write 가 모두 가능한 변수를 read only로 만들기 위한 방법이고
+ &rdquo;#define&rdquo; 을 대체하는 수단으로 사용될 수 있고
+  #define MY_DEFINE1 1 // MY_DEFINE can be any of integer/float/double  const float MY_CONST = 1; // MY_COSNT must be an float  함수 파라메터에 사용할 때는 해당 파라메터가 함수내에서 변경하지 않음을 명시할 수 있습니다"/>
+
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-128688878-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container">
+		<div class="logo" role="banner">
+			<a class="logo__link" href="/" title="Remember" rel="home">
+				<div class="logo__title">Remember</div>
+				<div class="logo__tagline">Sailing through... will find sonething</div>
+			</a>
+		</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<section class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">C2Dlang: pointer to const pointer</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 16 16"><path d="m8-.0000003c-4.4 0-8 3.6-8 8 0 4.4000003 3.6 8.0000003 8 8.0000003 4.4 0 8-3.6 8-8.0000003 0-4.4-3.6-8-8-8zm0 14.4000003c-3.52 0-6.4-2.88-6.4-6.4000003 0-3.52 2.88-6.4 6.4-6.4 3.52 0 6.4 2.88 6.4 6.4 0 3.5200003-2.88 6.4000003-6.4 6.4000003zm.4-10.4000003h-1.2v4.8l4.16 2.5600003.64-1.04-3.6-2.1600003z"/></svg>
+	<time class="meta__text" datetime="2018-10-01T00:00:00">2018-10</time>
+</div>
+
+<div class="meta__item-categories meta__item">
+	<svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg>
+	<span class="meta__text"><a class="meta__link" href="/categories/dlang" rel="category">dlang</a></span>
+</div>
+</div>
+		</header><div class="content post__content clearfix">
+			
+
+<blockquote>
+<p>이 글은 C를 기준으로 Dlang을 비교/설명함으로써 C 언어 사용자가 Dlang을 쉽게 이해할 수 있도록 하기 위해 작성되었습니다.</p>
+</blockquote>
+
+<p>제목처럼 C에서 &ldquo;ponter&rdquo;와 &ldquo;const&rdquo;의 조합을 Dlang에서는 어떻게 사용하는 지, 어떤 차이점이 있는지를 정리하고자 합니다.</p>
+
+<p>아시겠지만 C에서 const 키워드가 어떻게 사용되는지를 먼저 간단히 요약하면</p>
+
+<ul>
+<li><p>read &amp; write 가 모두 가능한 변수를 read only로 만들기 위한 방법이고</p></li>
+
+<li><p>&rdquo;#define&rdquo; 을 대체하는 수단으로 사용될 수 있고</p></li>
+</ul>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">  <span style="color:#007020">#define MY_DEFINE1            1   </span><span style="color:#60a0b0;font-style:italic">// MY_DEFINE can be any of integer/float/double     
+</span><span style="color:#60a0b0;font-style:italic"></span>  <span style="color:#007020;font-weight:bold">const</span> <span style="color:#902000">float</span> MY_CONST <span style="color:#666">=</span>        <span style="color:#40a070">1</span>;  <span style="color:#666">//</span> MY_COSNT must be an <span style="color:#902000">float</span> </code></pre></div>
+<p>함수 파라메터에 사용할 때는 해당 파라메터가 함수내에서 변경하지 않음을 명시할 수 있습니다</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C">  <span style="color:#902000">void</span> <span style="color:#06287e">sub</span>(<span style="color:#007020;font-weight:bold">const</span> <span style="color:#902000">char</span><span style="color:#666">*</span> ptr) <span style="color:#60a0b0;font-style:italic">// announce sub() never change contents of &#34;ptr&#34;
+</span><span style="color:#60a0b0;font-style:italic"></span>  {   ptr[<span style="color:#40a070">0</span>] <span style="color:#666">=</span> <span style="color:#40a070">0</span>;               <span style="color:#60a0b0;font-style:italic">// sub) will not use this kind of operations
+</span><span style="color:#60a0b0;font-style:italic"></span>  }
+  <span style="color:#902000">void</span> <span style="color:#06287e">main</span>()
+  {   <span style="color:#902000">char</span><span style="color:#666">*</span>   ptr <span style="color:#666">=</span> <span style="color:#4070a0">&#34;my_data&#34;</span>;
+      sub(ptr);
+  }</code></pre></div>
+<h2 id="const-키워드를-선언하는-방법의-차이">const 키워드를 선언하는 방법의 차이</h2>
+
+<p>그럼 본론으로 들어가서 C와 D에서의 &ldquo;const&rdquo; 선언 방법을 정리하면 아래와 같고 개인적으로는 Dlang의 const 선언 방법이 조금 더 의미 전달이 명확하다고 생각합니다</p>
+
+<table>
+<thead>
+<tr>
+<th>in C</th>
+<th>not allowed operation</th>
+<th>in D</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>const int value</td>
+<td>value = 100;</td>
+<td>const (int) value</td>
+</tr>
+
+<tr>
+<td>const char* ptr</td>
+<td>*ptr = 0;</td>
+<td>const (char) * ptr</td>
+</tr>
+
+<tr>
+<td>char* const ptr</td>
+<td>ptr = NULL;</td>
+<td>const (char*) ptr</td>
+</tr>
+
+<tr>
+<td>const char** ptr</td>
+<td>**ptr = 0;</td>
+<td>const (char) ** ptr</td>
+</tr>
+
+<tr>
+<td>char * const * ptr</td>
+<td>*ptr = 0;</td>
+<td>const (char *) * ptr</td>
+</tr>
+
+<tr>
+<td>char ** const ptr</td>
+<td>ptr = NULL;</td>
+<td>const (char **) ptr</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="const가-적용되는-범위의-차이">const가 적용되는 범위의 차이</h2>
+
+<p>또 다른 차이는 const 정의 후 read-only로 취급되는 범위가 아래와 같이 C보다 좀 더 넓어집니다.</p>
+
+<ul>
+<li>in C</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>ptr = NULL</th>
+<th>*ptr = NULL</th>
+<th>**ptr = 0</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>char ** const ptr</td>
+<td>now allowed</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>char * const * ptr</td>
+<td></td>
+<td>not allowed</td>
+<td></td>
+</tr>
+
+<tr>
+<td>const char ** ptr</td>
+<td></td>
+<td></td>
+<td>not allowed</td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li>in D</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>ptr = NULL</th>
+<th>*ptr = NULL</th>
+<th>**ptr = 0</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>const (char **) ptr</td>
+<td>not allowed</td>
+<td>not allowed</td>
+<td>not allowed</td>
+</tr>
+
+<tr>
+<td>const (char*) * ptr</td>
+<td></td>
+<td>not allowed</td>
+<td>not allowed</td>
+</tr>
+
+<tr>
+<td>const (char) ** ptr;</td>
+<td></td>
+<td></td>
+<td>not allowed</td>
+</tr>
+</tbody>
+</table>
+
+<p>위와 같은 read-only가 작용되는 커버리지에 대한 확인은 아래와 같은 C와 D 코드를 컴파일해 보면 확인할 수 있습니다.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#60a0b0;font-style:italic">// in C 
+</span><span style="color:#60a0b0;font-style:italic"></span><span style="color:#007020">#include</span> <span style="color:#007020">&lt;stdio.h&gt;</span><span style="color:#007020">
+</span><span style="color:#007020"></span>
+<span style="color:#902000">void</span> <span style="color:#06287e">main</span>()
+{
+    {   <span style="color:#902000">char</span><span style="color:#666">**</span>          x;
+        x <span style="color:#666">=</span> <span style="color:#007020">NULL</span>;
+        <span style="color:#666">*</span>x <span style="color:#666">=</span> <span style="color:#007020">NULL</span>;
+        <span style="color:#666">**</span>x <span style="color:#666">=</span> <span style="color:#4070a0">&#39;c&#39;</span>;
+    }
+    {   <span style="color:#902000">char</span><span style="color:#666">**</span><span style="color:#007020;font-weight:bold">const</span>     x;
+        x <span style="color:#666">=</span> <span style="color:#007020">NULL</span>;       <span style="color:#60a0b0;font-style:italic">// ERROR
+</span><span style="color:#60a0b0;font-style:italic"></span>        <span style="color:#666">*</span>x <span style="color:#666">=</span> <span style="color:#007020">NULL</span>;
+        <span style="color:#666">**</span>x <span style="color:#666">=</span> <span style="color:#4070a0">&#39;c&#39;</span>;
+    }
+    {   <span style="color:#902000">char</span><span style="color:#666">*</span> <span style="color:#007020;font-weight:bold">const</span> <span style="color:#666">*</span>   x;
+        x <span style="color:#666">=</span> <span style="color:#007020">NULL</span>;
+        <span style="color:#666">*</span>x <span style="color:#666">=</span> <span style="color:#007020">NULL</span>;      <span style="color:#60a0b0;font-style:italic">// ERROR
+</span><span style="color:#60a0b0;font-style:italic"></span>        <span style="color:#666">**</span>x <span style="color:#666">=</span> <span style="color:#4070a0">&#39;c&#39;</span>;
+    }
+    {   <span style="color:#007020;font-weight:bold">const</span> <span style="color:#902000">char</span><span style="color:#666">**</span>    x;
+        x <span style="color:#666">=</span> <span style="color:#007020">NULL</span>;
+        <span style="color:#666">*</span>x <span style="color:#666">=</span> <span style="color:#007020">NULL</span>;
+        <span style="color:#666">**</span>x <span style="color:#666">=</span> <span style="color:#4070a0">&#39;c&#39;</span>;      <span style="color:#60a0b0;font-style:italic">// ERROR
+</span><span style="color:#60a0b0;font-style:italic"></span>    }
+}</code></pre></div><div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#60a0b0;font-style:italic">// in D 
+</span><span style="color:#60a0b0;font-style:italic"></span><span style="color:#902000">void</span> <span style="color:#06287e">main</span>()
+{
+    {   <span style="color:#902000">char</span><span style="color:#666">**</span>          x;
+        x <span style="color:#666">=</span> null;
+        <span style="color:#666">*</span>x <span style="color:#666">=</span> null;
+        <span style="color:#666">**</span>x <span style="color:#666">=</span> <span style="color:#4070a0">&#39;c&#39;</span>;
+    }
+    {   <span style="color:#007020;font-weight:bold">const</span> (<span style="color:#902000">char</span><span style="color:#666">**</span>)  x;  <span style="color:#60a0b0;font-style:italic">// in C : char** const x;
+</span><span style="color:#60a0b0;font-style:italic"></span>        x <span style="color:#666">=</span> null;           <span style="color:#60a0b0;font-style:italic">// ERROR
+</span><span style="color:#60a0b0;font-style:italic"></span>        <span style="color:#666">*</span>x <span style="color:#666">=</span> null;          <span style="color:#60a0b0;font-style:italic">// ERROR
+</span><span style="color:#60a0b0;font-style:italic"></span>        <span style="color:#666">**</span>x <span style="color:#666">=</span> <span style="color:#4070a0">&#39;c&#39;</span>;          <span style="color:#60a0b0;font-style:italic">// ERROR
+</span><span style="color:#60a0b0;font-style:italic"></span>    }
+    {   <span style="color:#007020;font-weight:bold">const</span>(<span style="color:#902000">char</span><span style="color:#666">*</span>)<span style="color:#666">*</span>   x;  <span style="color:#60a0b0;font-style:italic">// in C : char* const * x;
+</span><span style="color:#60a0b0;font-style:italic"></span>        x <span style="color:#666">=</span> null;
+        <span style="color:#666">*</span>x <span style="color:#666">=</span> null;          <span style="color:#60a0b0;font-style:italic">// ERROR
+</span><span style="color:#60a0b0;font-style:italic"></span>        <span style="color:#666">**</span>x <span style="color:#666">=</span> <span style="color:#4070a0">&#39;c&#39;</span>;          <span style="color:#60a0b0;font-style:italic">// ERROR
+</span><span style="color:#60a0b0;font-style:italic"></span>    }
+    {   <span style="color:#007020;font-weight:bold">const</span> (<span style="color:#902000">char</span>)<span style="color:#666">**</span>  x;  <span style="color:#60a0b0;font-style:italic">// in C : const char**    x;
+</span><span style="color:#60a0b0;font-style:italic"></span>        x <span style="color:#666">=</span> null;
+        <span style="color:#666">*</span>x <span style="color:#666">=</span> null;
+        <span style="color:#666">**</span>x <span style="color:#666">=</span> <span style="color:#4070a0">&#39;c&#39;</span>;          <span style="color:#60a0b0;font-style:italic">// ERROR
+</span><span style="color:#60a0b0;font-style:italic"></span>    }
+}</code></pre></div>
+<hr />
+
+<p>내용 중 오류 또는 추가되어야 할 내용을 알려주시면 감사하겠습니다.</p>
+
+<p>이 저작물은 <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CC 저작자표시-비영리-변경금지 4.0 국제 라이선스</a>에 따라 이용할 수 있습니다.</p>
+
+		</div>
+		
+<div class="post__tags tags clearfix">
+	<svg class="icon icon-tag" width="16" height="16" viewBox="0 0 16 16"><path d="M16 9.5c0 .373-.24.74-.5 1l-5 5c-.275.26-.634.5-1 .5-.373 0-.74-.24-1-.5L1 8a2.853 2.853 0 0 1-.7-1C.113 6.55 0 5.973 0 5.6V1.4C0 1.034.134.669.401.401.67.134 1.034 0 1.4 0h4.2c.373 0 .95.113 1.4.3.45.187.732.432 1 .7l7.5 7.502c.26.274.5.632.5.998zM3.5 5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item"><a class="tags__link btn" href="/tags/aaa/" rel="tag">aaa</a></li>
+	</ul>
+</div>
+	</article>
+</main>
+
+
+<nav class="post-nav flex">
+	<div class="post-nav__item post-nav__item--prev">
+		<a class="post-nav__link" href="/post/test/" rel="prev"><span class="post-nav__caption">«&thinsp;Previous</span><p class="post-nav__post-title">Test</p></a>
+	</div>
+</nav>
+
+<section class="comments">
+	<script src="https://utteranc.es/client.js"
+        repo="zsdotkr/blog_comments"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+	</script>
+</section>
+
+			</section>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2018 Remember.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script></body>
+</html>
