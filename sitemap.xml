@@ -3,19 +3,8 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/post/dlang-pointer-to-const-pointer/</loc>
+    <loc>/post/summary-of-difference-between-lte-u-laa-lwa-lwip-multefire-and-cbrs/</loc>
     <lastmod>2018-10-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/test/</loc>
-    <lastmod>2018-10-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/aaa/</loc>
-    <lastmod>2018-10-01T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -24,7 +13,7 @@
   </url>
   
   <url>
-    <loc>/categories/dlang/</loc>
+    <loc>/tags/lte/</loc>
     <lastmod>2018-10-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -43,6 +32,12 @@
   
   <url>
     <loc>/tags/</loc>
+    <lastmod>2018-10-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/tech/</loc>
     <lastmod>2018-10-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>

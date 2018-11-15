@@ -12,26 +12,14 @@
     
     
     <item>
-      <title>C2Dlang: pointer to const pointer</title>
-      <link>/post/dlang-pointer-to-const-pointer/</link>
+      <title>Summary of difference between LTE-U, LAA, LWA, LWIP, MuLTEfire and CBRS</title>
+      <link>/post/summary-of-difference-between-lte-u-laa-lwa-lwip-multefire-and-cbrs/</link>
       <pubDate>Mon, 01 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/dlang-pointer-to-const-pointer/</guid>
-      <description>이 글은 C를 기준으로 Dlang을 비교/설명함으로써 C 언어 사용자가 Dlang을 쉽게 이해할 수 있도록 하기 위해 작성되었습니다.
- 제목처럼 C에서 &amp;ldquo;ponter&amp;rdquo;와 &amp;ldquo;const&amp;rdquo;의 조합을 Dlang에서는 어떻게 사용하는 지, 어떤 차이점이 있는지를 정리하고자 합니다.
-아시겠지만 C에서 const 키워드가 어떻게 사용되는지를 먼저 간단히 요약하면
- read &amp;amp; write 가 모두 가능한 변수를 read only로 만들기 위한 방법이고
- &amp;rdquo;#define&amp;rdquo; 을 대체하는 수단으로 사용될 수 있고
-  #define MY_DEFINE1 1 // MY_DEFINE can be any of integer/float/double  const float MY_CONST = 1; // MY_COSNT must be an float  함수 파라메터에 사용할 때는 해당 파라메터가 함수내에서 변경하지 않음을 명시할 수 있습니다</description>
-    </item>
-    
-    <item>
-      <title>Test</title>
-      <link>/post/test/</link>
-      <pubDate>Mon, 01 Oct 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/post/test/</guid>
-      <description>My test blog article</description>
+      <guid>/post/summary-of-difference-between-lte-u-laa-lwa-lwip-multefire-and-cbrs/</guid>
+      <description>&lt;p&gt;This article is written to compare briefly characteristics of six different kinds of LTE technologies using an unlicensed band, primarily for WiFi services.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

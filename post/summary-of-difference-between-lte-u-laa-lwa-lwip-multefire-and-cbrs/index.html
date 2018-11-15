@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Summary of difference between LTE-U, LAA, LWA, LWIP, MuLTEfire and CBRS</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<meta name="generator" content="Hugo 0.50" />
+	<meta property="og:title" content="Summary of difference between LTE-U, LAA, LWA, LWIP, MuLTEfire and CBRS" />
+<meta property="og:description" content="This article is written to compare briefly characteristics of six different kinds of LTE technologies using an unlicensed band, primarily for WiFi services.
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/summary-of-difference-between-lte-u-laa-lwa-lwip-multefire-and-cbrs/" /><meta property="article:published_time" content="2018-10-01T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-10-01T00:00:00&#43;00:00"/>
+
+	<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Summary of difference between LTE-U, LAA, LWA, LWIP, MuLTEfire and CBRS"/>
+<meta name="twitter:description" content="This article is written to compare briefly characteristics of six different kinds of LTE technologies using an unlicensed band, primarily for WiFi services.
+
+"/>
+
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-128688878-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container">
+		<div class="logo" role="banner">
+			<a class="logo__link" href="/" title="Remember" rel="home">
+				<div class="logo__title">Remember</div>
+				<div class="logo__tagline">Sailing through... will find sonething</div>
+			</a>
+		</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<section class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Summary of difference between LTE-U, LAA, LWA, LWIP, MuLTEfire and CBRS</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 16 16"><path d="m8-.0000003c-4.4 0-8 3.6-8 8 0 4.4000003 3.6 8.0000003 8 8.0000003 4.4 0 8-3.6 8-8.0000003 0-4.4-3.6-8-8-8zm0 14.4000003c-3.52 0-6.4-2.88-6.4-6.4000003 0-3.52 2.88-6.4 6.4-6.4 3.52 0 6.4 2.88 6.4 6.4 0 3.5200003-2.88 6.4000003-6.4 6.4000003zm.4-10.4000003h-1.2v4.8l4.16 2.5600003.64-1.04-3.6-2.1600003z"/></svg>
+	<time class="meta__text" datetime="2018-10-01T00:00:00">2018-10</time>
+</div>
+
+<div class="meta__item-categories meta__item">
+	<svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg>
+	<span class="meta__text"><a class="meta__link" href="/categories/tech" rel="category">tech</a></span>
+</div>
+</div>
+		</header><div class="content post__content clearfix">
+			<p>This article is written to compare briefly characteristics of six different kinds of LTE technologies using an unlicensed band, primarily for WiFi services.</p>
+
+<p></p>
+
+<h4 id="reference-standards">Reference Standards</h4>
+
+<ul>
+<li>LTE-U : 3GPP R12 modification by LTE-U Forum</li>
+<li>LAA / eLAA : 3GPP R13 (LAA) / R14 (eLAA)</li>
+<li>LWA / eLWA : 3GPP R13 (LWA) / R14 (eLWA)</li>
+<li>LWIP : 3GPP R13</li>
+<li>MuLTEfire : 3GPP R13 &amp; R14 modification mainly at the radio layer by MuLTEfire Forum</li>
+</ul>
+
+<h4 id="frequency-for-unlicensed-band">Frequency for Unlicensed Band</h4>
+
+<ul>
+<li>LTE-U : 5GHz Only<br /></li>
+<li>LAA / eLAA : 5GHz Only<br /></li>
+<li>LWA / eLWA : Any WiFi band including 60GHz (802.11ax / WiFi6)<br /></li>
+<li>LWIP : Any WiFi band including 60GHz</li>
+<li>MuLTEfire : mainly 5GHz band for data service and sub-1GHz ISM band for a IoT service</li>
+</ul>
+
+<h4 id="serving-nodes-configuration">Serving Nodes Configuration</h4>
+
+<ul>
+<li>LTE-U : eNB which serve both LTE and unlicensed band</li>
+<li>LAA / eLAA : eNB which serve both LTE and unlicensed band</li>
+
+<li><p>LWA / eLWA : eNB serve LTE band + WT serve both unlicensed band and Wifi</p>
+
+<blockquote>
+<p><em>3GPP aims to use existing WiFi AP as their WT (Wireless Terminal), only with a software upgrade to serve both WiFi and LWA/eLWA connectivity. 3GPP already adopted similar concept at their TWAN architecture. eNB does overall management for WTs connected to the eNB.</em></p>
+</blockquote></li>
+
+<li><p>LWIP :  eNB serve LTE band + Commercial WiFi AP/AC + LWIP capable UE</p>
+
+<blockquote>
+<p><em>3GPP aims not to touch anything of WiFi AP/AC, touch UE instead. 3GPP already adopted similar concept at their ePDG architecture. eNB does not manage WiFi AP/AC at all, instead, interacts with UE directly.</em></p>
+</blockquote></li>
+
+<li><p>MuLTEfire : MuLTEfire capable eNB and UE</p>
+
+<blockquote>
+<p><em>MuLTEfire Forum&rsquo;s intent : Building LTE only with unlicensed bands without the support of a licensed band while keeping interoperability with existing LTE core entities (SGW, PGW, MME, HSS, PCRF and others)</em></p>
+</blockquote></li>
+</ul>
+
+<h4 id="radio-channel-aggregation">Radio Channel Aggregation</h4>
+
+<ul>
+<li><p>LTE-U : use CA (carrier aggregation) between LTE and unlicensed band</p>
+
+<blockquote>
+<p><em>An eNB have wireless physical layers (RLC &amp; MAC) for both LTE and unlicensed, use LTE band as a primary link (signal+ data) and unlicensed band as a secondary link (data without signal)</em></p>
+</blockquote></li>
+
+<li><p>LAA / eLAA : use CA between LTE and unlicensed band</p>
+
+<blockquote>
+<p><em>Same as LTE-U. CA is possible</em></p>
+</blockquote></li>
+
+<li><p>LWA / eLWA : use DC (dual connectivity) between LTE and unlicensed band</p>
+
+<blockquote>
+<p>An eNB does not have a physical layer for unlicensed band, owned by WT.</p>
+
+<p>DC is designed for these use-cases: when need to aggregate wholly different wireless technologies together; when those different RLC/MACs could not be synchronized - connected through non-ideal path (e.g., because of network/protocol delay)</p>
+</blockquote></li>
+
+<li><p>LWIP : use DC between LTE and unlicensed band</p>
+
+<blockquote>
+<p><em>Same as LWA/eLWA, Only DC is possible</em></p>
+</blockquote></li>
+
+<li><p>MuLTEfire : Not clear</p>
+
+<blockquote>
+<p><em>Both CA and DC could be in scope because MuLTEfire is based on R-13 ~ 14. But MuLTEfire has no anchoring band which should be stable and available at any time which LTE have.</em></p>
+</blockquote></li>
+</ul>
+
+<p>More about CA and DC,</p>
+
+<ul>
+<li>in CA : Single IP packet can be delivered through <strong>both LTE and unlicensed band</strong> after fragmented at wireless radio layer (RLC layer does this); In an example, if eNB assigns 5Mbps at LTE and 10Mbps at unlicensed band to UE, user can experience 15Mbps high-quality youtube single video stream.</li>
+<li>in DC : Single IP packet should be delivered through <strong>one of LTE or unlicensed band</strong>; In an example, if eNB assigns 5Mbps at LTE and 10Mbps at unlicensed band to UE, user can experience 5Mbps low-quality or 10Mbps mid-quality youtube video stream and can use remaining bandwidth (10 or 5Mbps) for another application at the same time.</li>
+<li><a href="https://www.netmanias.com/en/post/blog/7388/c-ran-fronthaul-kt-korea-lte-lte-h-lte-u-mwc-2015-samsung/netmanias-interview-with-kt-at-mwc-2015-kt-s-demonstrations-of-lte-h-and-lte-u">Fig. 4 in this article</a>  will be helpful to understand the physical layer configuration for CA (single PDCP/RLC + multiple MAC)</li>
+<li>See <a href="http://www.sharetechnote.com/html/Handbook_LTE_LWA.html">this article</a> for DC (single PDCP + multiple RLC/MAC); Fig. 2 in the previous article explaining LTE-H also be helpful to how DC works.</li>
+</ul>
+
+<h4 id="service-direction-and-air-frame-format-for-unlicensed-band">Service Direction and Air Frame Format for Unlicensed Band</h4>
+
+<ul>
+<li>LTE-U : DL Only. use 3GPP Frame Structure Type 1 (FDD) + CSAT<br /></li>
+
+<li><p>LAA / eLAA : DL Only (LAA), DL &amp; UL (eLAA). use 3GPP Frame Structure Type 3</p>
+
+<blockquote>
+<p><em>LTE Frame Structure Type 3 : LTE TDD-like frame format to use a single unlicensed frequency for both uplink and downlink. also, have LBT capability to meet national regulations to use unlicensed band.</em></p>
+</blockquote></li>
+
+<li><p>LWA / eLWA : DL Only (LWA), DL &amp; UL (eLWA). use 802.11 WiFi frame</p>
+
+<blockquote>
+<p><em>GTP-U tunnel is used between eNB &amp; WT, <a href="https://www.netmanias.com/en/?m=view&amp;id=reports&amp;no=8532">Fig.7 in this article</a> will be helpful to understand how it works.</em></p>
+</blockquote></li>
+
+<li><p>LWIP : DL &amp; UL, use 802.11 WiFi frame</p>
+
+<blockquote>
+<p><em>IPSec tunnel is used between eNB and UE to transfer user data and signaling. WiFi AP is used only to deliver IPSec packets.</em></p>
+</blockquote></li>
+
+<li><p>MuLTEfire : DL &amp; UL, use their proprietary frame format</p>
+
+<blockquote>
+<p><em>They extend &ldquo;3GPP frame structure type 3&rdquo; to use solely the unlicensed band without the help from a licensed band. And also adopt a different kind of modulation method called &ldquo;RB interlace&rdquo; to extend coverage instead of SC-FDMA which is used for LTE uplink modulation method for frame structure type 1 to 3. Need more details? See <a href="https://www.MuLTEfire.org/wp-content/uploads/2016/10/MuLTEfire_Radio-Link.pdf">here</a></em></p>
+</blockquote></li>
+</ul>
+
+<p>see 3GPP TS 36.300 chapter 5 for the definition of frame structure type 1 ~ 3. and <a href="https://ofinno.com/technology/enhanced-laa/">this</a> will also be helpful to understand the differences.</p>
+
+<h4 id="cbrs-citizen-broadband-radio-service">CBRS (Citizen Broadband Radio Service)</h4>
+
+<p>CBRS is sometimes called as one of the unlicensed LTE technologies but has a different purpose. Precisely speaking, LAA ~ LWIP shares and uses an unlicensed band <strong>with other wireless technologies</strong>, mainly WiFi. But CBRS shares a licensed band, called as CBRS band, <strong>with other eNBs owned by another LTE operator</strong>; other wireless technologies such as <strong>WiFi cannot use CBRS band</strong>.</p>
+
+<blockquote>
+<p>In 2017, the FCC completed a process to establish rules for commercial use of this band. Commercializing this band enables <strong>Service Providers/Wireless Operators to use it without acquiring frequency licenses</strong>. CBRS frequency spectrum shall help 4G/5G mobile networks deployment quicker and easier. CBRS band is also referred as <strong>3.5 GHz band</strong>.  The main users of the 3.5 GHz band are the US military services: The US Air Force, Army, Coast Guard, Marines and Navy. The US government’s intent is to make this band available for commercial flexible wireless broadband use, leading to improved broadband access and performance for consumers. - refer <a href="http://www.techplayon.com/citizens-broadband-radio-service-cbrs-frequency-spectrum-operation-modes-and-its-applications/">this article</a></p>
+</blockquote>
+
+<h4 id="why-mobile-operators-so-eager-to-use-unlicensed">Why mobile operators so eager to use unlicensed?</h4>
+
+<p>Because&hellip; acquiring a licensed frequency band for a LTE service is <strong>very EXPENSIVE</strong>.</p>
+
+<blockquote>
+<p>In a recent example, 5G spectrum auction, 3.5GHz CBRS band and 28GHz mmWave band, at Korea ended on last June 2018. Three major mobile operators in Korea, SKT, KT, LGU+, acquire licenses to use CBRS frequency band, from 3.42GHz to 3.7GHz, 280MHz width, for 10 years after paying a total of 2.77 billion USD (2.99 trillion KRW). Almost <strong>9.9 million USD per 1MHz.</strong>  - refer <a href="http://english.yonhapnews.co.kr/search1/2603000000.html?cid=AEN20180618010500320">this news</a></p>
+</blockquote>
+
+<h4 id="trials-deployments">Trials &amp; Deployments</h4>
+
+<ul>
+<li><p>See this <a href="https://www.sata-sec.net/downloads/GSA/180117-GSA-Unlicensed-spectrum-report-Jan-2018.pdf">GSA report, Jan. 2018</a>, which drive me to write this article</p>
+
+<blockquote>
+<p><em>&ldquo;As of late 2018, all trial and commercial deployments of pre-standards LTE Forum LTE-U technology have been shut down or upgraded to the 3GPP Standard release 13 LTE-LAA&rdquo; - wikipedia</em></p>
+</blockquote></li>
+</ul>
+
+<h4 id="abbreviations">Abbreviations</h4>
+
+<ul>
+<li>LAA / eLAA : License Assisted Access / enhanced LAA</li>
+<li>LTE-U : LTE Unlicensed</li>
+<li>LWA / eLWA : LTE Wireless LAN Aggregation / enhanced LWA</li>
+<li>LBT : Listen Before Talk</li>
+<li>CSAT : Carrier Sensing Adaptive Transmission</li>
+<li>WT : WLAN Terminal (normally WiFi AP which interacts with eNB)</li>
+<li>DL : Downlink, packets flowing from outside of LTE/EPC to UE<br /></li>
+<li>UL : Uplink, packets flowing from UE to outside of LTE/EPC</li>
+<li>PDCP : Packet Data Convergence Protocol, the lowest handler for IP frame, perform encryption/decryption for radio interface, and compression optionally called IPCOMP to minimize overhead during air transmission.</li>
+<li>RLC : Radio Link Control, topmost handler for an air transmission, perform fragment/reassembly/retransmission at air interface</li>
+</ul>
+
+<hr />
+
+<p><em>Please, comments if there is anything wrong or need to update.</em></p>
+
+<p><em>Written by <a href="mailto:zsdotkr@gmail.com">zsdotkr@gmail.com</a> with CC license : <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a></em></p>
+		</div>
+		
+<div class="post__tags tags clearfix">
+	<svg class="icon icon-tag" width="16" height="16" viewBox="0 0 16 16"><path d="M16 9.5c0 .373-.24.74-.5 1l-5 5c-.275.26-.634.5-1 .5-.373 0-.74-.24-1-.5L1 8a2.853 2.853 0 0 1-.7-1C.113 6.55 0 5.973 0 5.6V1.4C0 1.034.134.669.401.401.67.134 1.034 0 1.4 0h4.2c.373 0 .95.113 1.4.3.45.187.732.432 1 .7l7.5 7.502c.26.274.5.632.5.998zM3.5 5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item"><a class="tags__link btn" href="/tags/lte/" rel="tag">lte</a></li>
+	</ul>
+</div>
+	</article>
+</main>
+
+
+
+<section class="comments">
+	<script src="https://utteranc.es/client.js"
+        repo="zsdotkr/blog_comments"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+	</script>
+</section>
+
+			</section>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2018 Remember.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script></body>
+</html>
