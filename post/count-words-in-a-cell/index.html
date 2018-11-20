@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Count words in a excel cell</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<meta name="generator" content="Hugo 0.50" />
+	<meta property="og:title" content="Count words in a excel cell" />
+<meta property="og:description" content="엑셀의 셀에서 단어의 수만 셀 수 있는 공식이 필요하게 되었습니다. VBA를 이용하면 그럭저럭 되긴 하겠지만 문서를 열 때마다 보안 경고를 띄우는 불편함으로&hellip; 가급적 쓰고 싶지 않았기 때문에 함수 - 영어로는 formula로 표현되는 - 를 사용하는 방법을 찾아서 정리해 봤습니다.
+
+
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/count-words-in-a-cell/" /><meta property="article:published_time" content="2018-08-01T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-08-01T00:00:00&#43;00:00"/>
+
+	<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Count words in a excel cell"/>
+<meta name="twitter:description" content="엑셀의 셀에서 단어의 수만 셀 수 있는 공식이 필요하게 되었습니다. VBA를 이용하면 그럭저럭 되긴 하겠지만 문서를 열 때마다 보안 경고를 띄우는 불편함으로&hellip; 가급적 쓰고 싶지 않았기 때문에 함수 - 영어로는 formula로 표현되는 - 를 사용하는 방법을 찾아서 정리해 봤습니다.
+
+
+
+"/>
+
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-128688878-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container">
+		<div class="logo" role="banner">
+			<a class="logo__link" href="/" title="Remember" rel="home">
+				<div class="logo__title">Remember</div>
+				<div class="logo__tagline">Sailing through... will find sonething</div>
+			</a>
+		</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<section class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Count words in a excel cell</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 16 16"><path d="m8-.0000003c-4.4 0-8 3.6-8 8 0 4.4000003 3.6 8.0000003 8 8.0000003 4.4 0 8-3.6 8-8.0000003 0-4.4-3.6-8-8-8zm0 14.4000003c-3.52 0-6.4-2.88-6.4-6.4000003 0-3.52 2.88-6.4 6.4-6.4 3.52 0 6.4 2.88 6.4 6.4 0 3.5200003-2.88 6.4000003-6.4 6.4000003zm.4-10.4000003h-1.2v4.8l4.16 2.5600003.64-1.04-3.6-2.1600003z"/></svg>
+	<time class="meta__text" datetime="2018-08-01T00:00:00">2018-08</time>
+</div>
+
+<div class="meta__item-categories meta__item">
+	<svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg>
+	<span class="meta__text"><a class="meta__link" href="/categories/other" rel="category">Other</a></span>
+</div>
+</div>
+		</header><div class="content post__content clearfix">
+			<p>엑셀의 셀에서 단어의 수만 셀 수 있는 공식이 필요하게 되었습니다. VBA를 이용하면 그럭저럭 되긴 하겠지만 문서를 열 때마다 보안 경고를 띄우는 불편함으로&hellip; 가급적 쓰고 싶지 않았기 때문에 함수 - 영어로는 formula로 표현되는 - 를 사용하는 방법을 찾아서 정리해 봤습니다.</p>
+
+<p><img src="/post/cwiac_img/cwiac.jpg" style="zoom:70%" /></p>
+
+<p></p>
+
+<p>다행히도 &ldquo;counting word in a cell&rdquo; 정도의 키워드로 기본 공식이 아래와 같은 공식이 검색되긴 했지만 몇가지 문제가 있었습니다.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vbscript" data-lang="vbscript">=IF(ISBLANK(A1),0,LEN(TRIM(A1))-LEN(SUBSTITUTE(A1,&#34; &#34;,&#34;&#34;))+1)</code></pre></div>
+<ul>
+<li>문장내에 공백 (whitespace)는 몇개가 있어도 잘 동작하지만</li>
+<li>셀 내용에 줄바꿈이 들어가는 경우에도 단어수 계산이 잘못된다</li>
+<li>쉼표와 같은 구분자가 단어와 떨어져 있는 경우에는 단어수 계산이 잘못된다</li>
+</ul>
+
+<p>결국 공식을 써서 단어수를 자동으로 셀 수는 있지만 &ldquo;세심하게 입력을 하지 않으면 오류가 날 수도 있는&rdquo; 어정쩡한 상황&hellip;</p>
+
+<p>구글링에서 얻은 기본 공식을 기반으로 위에 열거한 문제점들을 어느 정도 개선한 공식을 공유하면서 겸사겸사 어떻게 작동을 하는지도 설명을 해보고자 합니다.</p>
+
+<h4 id="어떤-공식을-쓰면-되는-건가요">어떤 공식을 쓰면 되는 건가요?</h4>
+
+<p>시간이 없으신 분들을 위해 아래의 가정하에 만든 공식을 먼저 공유합니다.</p>
+
+<ul>
+<li>셀 내용에 줄바꿈이 들어가는 경우에도 문제가 없고</li>
+<li>단어 구분자가 단어와 떨어져 있는 경우에도 문제가 없지만</li>
+<li>구분자는 <strong>쉼표</strong>만 사용할 수 있는 <strong>제약</strong>을 가집니다 (구분자는 다른 걸로 바꿀 수는 있습니다)</li>
+</ul>
+
+<p>아래처럼 말이죠.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vbscript" data-lang="vbscript">=IF(LEN(TRIM(A1))=0,0,LEN(TRIM(SUBSTITUTE(SUBSTITUTE(A1,CHAR(10),&#34; &#34;),&#34;,&#34;, &#34; &#34;))) - LEN(SUBSTITUTE(TRIM(SUBSTITUTE(SUBSTITUTE(A1,CHAR(10),&#34; &#34;),&#34;,&#34;,&#34; &#34;)),&#34; &#34;,&#34;&#34;)) + 1)</code></pre></div>
+<p>처음 기본 공식에 비해 상당히 많이~~ 길어졌습니다. 직접 입력하기보다는 복사&amp;붙이기가 정신 건강에 이롭습니다 😄</p>
+
+<blockquote>
+<p>위의 공식에서 &ldquo;A1&rdquo;으로 쓰여져 있는 부분이 셀 명이니 실제 적용할 문서에 맞게 바꿔 쓰세요</p>
+</blockquote>
+
+<p>혹시나 구분자로 <strong>&rdquo;,&rdquo;</strong>가 아닌 다른걸 사용해야 하는 분들을 위해 - 위의 공식에는 &ldquo;,&ldquo;가 너무 많아서 바꾸려면 많이 헷갈린 관계로 -  <strong>&rdquo;$&rdquo;</strong>를 구분자로 넣는 예도 보여드리니 잘 보시고 &ldquo;$&rdquo; 부분을 필요한 구분자로 바꿔서 사용하시기 바랍니다.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vbscript" data-lang="vbscript">=IF(LEN(TRIM(A1))=0,0,LEN(TRIM(SUBSTITUTE(SUBSTITUTE(A1,CHAR(10),&#34; &#34;),&#34;$&#34;, &#34; &#34;))) - LEN(SUBSTITUTE(TRIM(SUBSTITUTE(SUBSTITUTE(A1,CHAR(10),&#34; &#34;),&#34;$&#34;,&#34; &#34;)),&#34; &#34;,&#34;&#34;)) + 1)</code></pre></div>
+<h4 id="공식을-한번-분해해-볼까요">공식을 한번 분해해 볼까요?</h4>
+
+<p>위의 공식을 보고 저처럼 이해가 안되는 것은 쓰기가 꺼려지시는 분들이나 도전 정신이 발동하시는 분 또는 좀 더 활용을 원하시는 분들을 위한 코너!</p>
+
+<p>공식이 길어 보이고 뭔가 복잡한 것 같지만 쪼개보면 괄호가 많아서 읽기가 힘들뿐이지 그리 어려운 것은 아닙니다.</p>
+
+<p>위에 제시한 공식을 설명하기 위해 사람이 입력하면 흔히 만들 수 있는 입력 패턴들이 포함된 엑셀의 셀 입력 예를 보겠습니다. 아래 그림에서 좌측이 사람이 보는 셀이고, 우측은 엑셀이 내부적으로 사용하는 - 엑셀은 텍스트라고 표현하는 - 문장 입니다.</p>
+
+<p><img src="/post/cwiac_img\example.jpg" style="zoom:70%" /></p>
+
+<ul>
+<li>위 그림에서 <strong>&ldquo;˽&rdquo;</strong>  기호는 공백 (whitespace)을 가시화한 것으로 스페이스키를 한번 누른것에 해당합니다.<br /></li>
+<li>위 그림에서 <strong>&ldquo;&#8629;&ldquo;</strong> 기호는 줄바꿈을 가시화한 것으로  엑셀 셀내에서 줄바꿈을 할 때 쓰는 &ldquo;ALT+ENTER&rdquo;에 해당합니다.<br /></li>
+</ul>
+
+<h4 id="1st-줄바꿈-문자-없애기">1st) 줄바꿈 문자 없애기</h4>
+
+<p>처음 할 일은 줄바꿈 문자인 &ldquo;&#8629;&rdquo; 을 없애는 것입니다. 영어로 표현하면 &ldquo;<strong>substitute</strong> carriage return to something another&rdquo; 정도로 표현할 수 있겠고 이 문서에서는 이해를 돕기 위해 공백으로 바꾸겠습니다만 삭제해 버려도 무방합니다.</p>
+
+<p>사용하는 함수는 <strong>SUBSTITUTE</strong>이고 줄바꿈 문자인 <strong>&ldquo;&#8629;&ldquo;</strong> 는 엑셀에서 <strong>&ldquo;CHAR(10)&rdquo;</strong> 으로 표현하므로 아래와 같이 사용하면 &ldquo;A1&rdquo; 셀에 있는 모든 <strong>줄바꿈</strong> 문자를 <strong>공백</strong>으로 바꿔줍니다.</p>
+
+<p><img src="/post/cwiac_img\substitute_cr.jpg" style="zoom:70%" /></p>
+
+<h4 id="2nd-구분자-없애기">2nd) 구분자 없애기</h4>
+
+<p>그 다음은 &ldquo;첫번째&rdquo;의 결과를 대상으로 구분자에 해당하는 &ldquo;,&ldquo;를 공백으로 바꾸는 것입니다.</p>
+
+<p>사용하는 함수는 첫번째와 동일한 SUBSTITUTE이며 대상을 &ldquo;CHAR(10)&rdquo; 대신에 <strong>&rdquo;,&rdquo;</strong>로 바꾸서 첫번째의 결과값에 적용하면 됩니다</p>
+
+<p><img src="/post/cwiac_img\substitute_sep.jpg" style="zoom:70%" /></p>
+
+<h4 id="3rd-여분의-공백을-정리하기">3rd) 여분의 공백을 정리하기</h4>
+
+<p>자&hellip; 이제 셀의 내용은 단어와 공백만 남았고 단어 사이의 공백이 여러개라는 문제만 해결하면 문장이 깔끔해 질 겁니다.</p>
+
+<p>이럴 때 사용하는 함수가 <strong>&ldquo;TRIM&rdquo;</strong>입니다. TRIM 함수는 문장의 제일 앞과 뒤에 보이지 않게 존재하는 공백을 모두 제거할 뿐만 아니라 <strong>단어와 단어 사이에 있는 공백이 여러개라면 이것도 1개만 남기고 모두 제거</strong>합니다. 아래처럼 말이죠.</p>
+
+<p><img src="/post/cwiac_img\trim.jpg" style="zoom:70%" /></p>
+
+<p>세번째 공식까지 적용한 결과인 위 그림의 오른쪽 문장을 보면 <strong>&ldquo;단어&rdquo;</strong>와 <strong>&ldquo;단어들을 구분하는 1개의 공백&rdquo;</strong>만 남았습니다.</p>
+
+<p>이 문장을 기준으로 단어의 수를 알아내는 것은 아래와 같은 공식으로 얻을 수 있습니다.</p>
+
+<pre><code>단어의 수 = 공백으로 구분된 문장의 모든 글자의 수 - 문장에서 공백을 제외한 글자의 수 + 1 = 11 - 8 + 1 = 4
+</code></pre>
+
+<p><img src="/post/cwiac_img\fomula.jpg" style="zoom:70%" /></p>
+
+<p>자 그럼 위의 공식을 완성하기 위한 마지막 두 단계를 진행하죠.</p>
+
+<h4 id="4th-공백을-전혀-없는-문장-만들기">4th) 공백을 전혀 없는 문장 만들기</h4>
+
+<p>세번째 결과에 또 <strong>&ldquo;SUBSTITUTE&rdquo;</strong>를 적용합니다. 대신 이번에는 정말로 <strong>&ldquo;공백을 없애기 위한 것&rdquo;</strong>이므로 바꿀 문자는 빈 문자 <code>&quot;&quot;</code>가 되겠습니다.</p>
+
+<p><img src="/post/cwiac_img/substitute_sp.jpg" style="zoom:70%" /></p>
+
+<h4 id="5th-단어수를-구합시다">5th) 단어수를 구합시다</h4>
+
+<p>자, 이제 단어수를 알아내는데 필요한 <strong>&ldquo;단어 사이에 하나의 공백만 있는 문장&rdquo;</strong>은 &ldquo;3rd)&rdquo; 에서 구했고 <strong>&ldquo;단어 사이의 공백을 모두 제거한 문장&rdquo;</strong>은 &ldquo;4th)&rdquo; 에서 구했으니 문장의 길이를 구해 보도록 하겠습니다.</p>
+
+<p>네번째 결과에 엑셀에서 단어수를 구하는 함수인 <strong>&ldquo;LEN&rdquo;</strong>을 적용하면 <strong>&ldquo;단어 사이의 공백을 모두 제거한 문장의 글자 수&rdquo;</strong>를 구할 수 있습니다.</p>
+
+<p><img src="/post/cwiac_img/len.jpg" style="zoom:70%" /></p>
+
+<p><strong>&ldquo;단어 사이에 하나의 공백만 있는 문장의 글자수&rdquo;</strong>는 어떻게 구할 수 있을까요?</p>
+
+<p>엑셀이 공식에서 변수를 지원했다면 위의 세번째 과정의 결과를 가지고 &ldquo;LEN&rdquo; 함수로 미리 글자수를 세서 저장을 해 둔 후 다섯번째에서 얻은 글자수를 빼면 되었겠지만&hellip; 엑셀은 공식내에서 변수를 지원하지 않기 때문에 무식하게 보일지 모르겠지만 &ldquo;1st)&rdquo; ~ &ldquo;3rd)&rdquo; 과정을 한번 더 한 후 &ldquo;LEN&rdquo;를 적용하면 됩니다. 😅   아래처럼 말이죠</p>
+
+<p><img src="/post/cwiac_img/len_3.jpg" style="zoom:70%" /></p>
+
+<p>이 두가지 연산을 같이 사용해서 단어수를 계산하는 공식은 아래처럼 만들어집니다.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vbscript" data-lang="vbscript">= LEN(TRIM(SUBSTITUTE(SUBSTITUTE(A1,CHAR(10),&#34; &#34;),&#34;,&#34;, &#34; &#34;))) - LEN(SUBSTITUTE(TRIM(SUBSTITUTE(SUBSTITUTE(A1,CHAR(10),&#34; &#34;),&#34;,&#34;,&#34; &#34;)),&#34; &#34;,&#34;&#34;))</code></pre></div>
+<h4 id="last-예외-처리">last) 예외 처리</h4>
+
+<p>다 된 것 같지만 아직 한가지 경우가 더 남아 있습니다. 바로 <strong>&ldquo;아무것도 입력하지 않은 경우&rdquo;</strong>에 대한 예외 처리입니다.</p>
+
+<p>아무것도 입력하지 않은 셀을 대상으로 위의 단어수 세기 공식을 적용하면 아래처럼 1개의 단어가 있는 걸로 계산됩니다.</p>
+
+<pre><code>단어의 수 = 문장의 모든 글자의 수 - 문장에서 공백을 제외한 글자의 수 + 1 = 0 - 0 + 1 = 1
+</code></pre>
+
+<p>이런 예외 처리에 자주 사용되는 게 조건문 함수인 <strong>&ldquo;IF&rdquo;</strong>입니다. 아무것도 입력하지 않거나 공백만 입력한 상태인 <code>&quot;LEN( TRIM(A1) ) = 0&quot;</code> 라면 0을 사용하도록 하면 되고, 그 외의 경우에는 위 공식의 결과값을 사용하도록 하면 됩니다.</p>
+
+<p><img src="/post/cwiac_img/if.jpg" style="zoom:70%" /></p>
+
+<p>위 그림의 &ldquo;our formula&rdquo; 부분에 다섯번째 과정의 공식을 넣으면 드디어 모든 과정이 마무리되고 처음에 보여드린 긴~~  공식이 만들어집니다.</p>
+
+<p>이제 여러분이 할 일은 데이타를 입력할 때 &ldquo;구분자&rdquo;는 &ldquo;,&ldquo;와 공백(&rdquo; &ldquo;)만 쓰고 다른것은 쓰지 않도록 주의하는 일만 남았습니다. 아니면 좀 더 길어지겠지만 SUBSTITUTE를 추가해서 여러개의 구분자를 추가하는 공식을 만들수도 있겠지요.</p>
+
+<hr />
+
+<p><em>Please, comments if there is anything wrong or need to update.</em></p>
+
+<p><em>Written by <a href="mailto:zsdotkr@gmail.com">zsdotkr@gmail.com</a> with CC license : <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a></em></p>
+		</div>
+		
+<div class="post__tags tags clearfix">
+	<svg class="icon icon-tag" width="16" height="16" viewBox="0 0 16 16"><path d="M16 9.5c0 .373-.24.74-.5 1l-5 5c-.275.26-.634.5-1 .5-.373 0-.74-.24-1-.5L1 8a2.853 2.853 0 0 1-.7-1C.113 6.55 0 5.973 0 5.6V1.4C0 1.034.134.669.401.401.67.134 1.034 0 1.4 0h4.2c.373 0 .95.113 1.4.3.45.187.732.432 1 .7l7.5 7.502c.26.274.5.632.5.998zM3.5 5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item"><a class="tags__link btn" href="/tags/office/" rel="tag">office</a></li>
+	</ul>
+</div>
+	</article>
+</main>
+
+
+<nav class="post-nav flex">
+	<div class="post-nav__item post-nav__item--next">
+		<a class="post-nav__link" href="/post/summary-of-difference-between-lte-u-laa-lwa-lwip-multefire-and-cbrs/" rel="next"><span class="post-nav__caption">Next&thinsp;»</span><p class="post-nav__post-title">Summary of difference between LTE-U, LAA, LWA, LWIP, MuLTEfire and CBRS</p></a>
+	</div>
+</nav>
+
+<section class="comments">
+	<script src="https://utteranc.es/client.js"
+        repo="zsdotkr/blog_comments"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+	</script>
+</section>
+
+			</section>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2018 Remember.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script></body>
+</html>
